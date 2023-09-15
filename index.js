@@ -5,6 +5,7 @@ const cors = require('cors')
 const dotenv = require('dotenv');
 const userRouter = require('./routes/user.route')
 const tweetRouter = require('./routes/tweet.route')
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 const app = express()
@@ -38,9 +39,6 @@ app.use(cors(corsOpts));
 //     next();
 // });
 app.use(express.json())
-
-const cookieParser = require('cookie-parser');
-
 app.use('/user', userRouter)
 app.use('/tweet', tweetRouter)
 
