@@ -22,7 +22,9 @@ const corsOpts = {
     ],
     allowedHeaders: [
         'Content-Type',
+        'Set-Cookie'
     ],
+    exposedHeaders: ["Set-Cookie"],
     credentials: true
 };
 
