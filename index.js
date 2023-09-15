@@ -11,7 +11,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://twitter-clone-frontend-production-1d63.up.railway.app/",
     credentials: true
 }))
 
