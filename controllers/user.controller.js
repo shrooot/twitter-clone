@@ -92,14 +92,16 @@ exports.unFollowUser = async (req, res) => {
     }
 }
 
-exports.getFollowers = async (req, res) => {
+exports.getFollowing = async (req, res) => {
     try {
         const userId = req.user._id;
         const followed = await RelationsModel
             .find({ follower: userId })
-            .select('followed -_id').populate('user', 'username')
+            .select('followed -_id').populate('followed', 'username')
 
-        res.status(200).json(followed)
+        const followedIds = followed.map(result => result.followed);
+
+        res.status(200).json(followedIds)
     } catch (err) {
         console.log(err)
         return res.status(400).json(err)
@@ -108,8 +110,15 @@ exports.getFollowers = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
     try {
-        const userId = req.user._id
-        const users = await User.find({ _id: { $ne: userId } }).select('username')
+        const userId = req.user._id;
+        const followed = await RelationsModel
+            .find({ follower: userId })
+            .select('followed -_id');
+
+        const followedIds = followed.map(result => result.followed);
+        followedIds.push(userId)
+        
+        const users = await User.find({ _id: { $nin: followedIds } }).select('username')
         console.log(users)
         res.status(200).json(users)
     } catch (err) {
@@ -127,7 +136,7 @@ exports.getUserFeed = async (req, res) => {
 
         const followedIds = followed.map(result => result.followed);
         console.log(followedIds)
-        const feedTweets = await TweetsModel.find({ user: { $in: followedIds } }).populate('user', 'username')
+        const feedTweets = await TweetsModel.find({ user: { $in: followedIds } }).populate('user', 'username').sort({createdAt: -1})
 
         res.status(200).json(feedTweets)
     } catch (err) {

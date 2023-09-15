@@ -4,12 +4,14 @@ import { TweetData } from '../../utils/types';
 import { errorToast, successToast } from '../../utils/customToast';
 import axios from 'axios';
 import { DELETE_TWEET_ENDPOINT, FEED_ENDPOINT, GET_USER_TWEET_ENDPOINT } from '../../utils/endpoints';
+import { useNavigate } from 'react-router-dom';
 
 interface PropsType {
   type: "user" | "feed"
 }
 
 const Tweet: React.FC<PropsType> = ({ type }) => {
+  const navigate = useNavigate()
   const [data, setData] = useState<TweetData[]>([])
 
   const getFeedData = async (type: string) => {
@@ -39,9 +41,17 @@ const Tweet: React.FC<PropsType> = ({ type }) => {
     }
   }
 
+  const handleOnUpdate = async (id: string) => {
+    try {
+      navigate(`/edit-tweet/${id}`)
+    } catch (error: any) {
+      errorToast(error.message)
+    }
+  }
+
   useEffect(() => {
     getFeedData(type)
-  }, [])
+  }, )
 
   return (
     <>
@@ -69,7 +79,7 @@ const Tweet: React.FC<PropsType> = ({ type }) => {
                 </div>
                 {type === 'user' ? (
                   <div className={styles.modifyOptionContainer}>
-                    <span className={styles.editOption}>Edit</span>
+                    <span className={styles.editOption} onClick={() => { handleOnUpdate(tweet._id) }}>Edit</span>
                     <span className={styles.deleteOption} onClick={() => { handleOnDelete(tweet._id) }}>Delete</span>
                   </div>
                 ) : (

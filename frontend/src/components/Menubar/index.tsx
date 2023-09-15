@@ -2,10 +2,15 @@ import {
     Home,
     Search,
     Twitter,
+    Logout,
+    People
 } from '../../utils/icons';
 import styles from "../../stylesheets/Menubar.module.css"
 import { useNavigate } from "react-router-dom"
-import PostButton from '../PostButton';
+import PostButton from '../Buttons/PostButton';
+import { errorToast } from '../../utils/customToast';
+import axios from 'axios';
+import { LOGOUT_ENDPOINT } from '../../utils/endpoints';
 
 const MenuBar: React.FC = () => {
     const navigate = useNavigate()
@@ -24,6 +29,19 @@ const MenuBar: React.FC = () => {
 
     const handlePostClick = () => {
         navigate("/create-tweet")
+    }
+
+    const handleFollowingClick = () => {
+        navigate("/following")
+    }
+
+    const handleLogoutClick = async () => {
+        try {
+            await axios.get(LOGOUT_ENDPOINT, { withCredentials: true })
+            navigate('/login')
+        } catch (err) {
+            errorToast("Error in signing out")
+        }
     }
 
     return (
@@ -49,6 +67,18 @@ const MenuBar: React.FC = () => {
                         <Twitter />
                     </div>
                     <span className={styles.optionName}>Your Tweets</span>
+                </div>
+                <div className={styles.option} onClick={() => { handleFollowingClick() }}>
+                    <div className={styles.icon}>
+                        <People />
+                    </div>
+                    <span className={styles.optionName}>Following</span>
+                </div>
+                <div className={styles.option} onClick={() => { handleLogoutClick() }}>
+                    <div className={styles.icon}>
+                        <Logout />
+                    </div>
+                    <span className={styles.optionName}>Logout</span>
                 </div>
             </div>
             <div onClick={() => handlePostClick()}>

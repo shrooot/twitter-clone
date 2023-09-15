@@ -14,6 +14,12 @@ export interface ICreateTweet {
     imgUrl?: string
 }
 
+export interface IUpdateTweet {
+    text: string,
+    imgUrl?: string,
+    tweetId: string
+}
+
 export interface IUsersList {
     _id: string,
     username: string

@@ -63,3 +63,14 @@ exports.getAllTweets = async (req, res) => {
         res.status(400).send(err)
     }
 }
+
+exports.getTweetById = async (req, res) => {
+    try {
+        const tweetId = req.params.tweetId
+        let tweet = await TweetsModel.findById(tweetId).populate('user','username');
+        res.status(200).json(tweet)
+    } catch (err) {
+        console.log(err)
+        res.status(400).send(err)
+    }
+}

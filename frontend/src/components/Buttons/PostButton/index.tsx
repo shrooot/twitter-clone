@@ -1,4 +1,4 @@
-import styles from "../../stylesheets/Button.module.css"
+import styles from "../../../stylesheets/Button.module.css"
 
 const PostButton: React.FC = () => {
     return (

@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react"
 import styles from "../../stylesheets/Explore.module.css"
-import FollowButton from "../Buttons/FollowButton"
 import { IUsersList } from "../../utils/types"
 import { errorToast } from "../../utils/customToast"
 import axios from "axios"
-import { GET_ALL_USERS_ENDPOINT } from "../../utils/endpoints"
+import { GET_FOLLOWING_ENDPOINT } from "../../utils/endpoints"
+import UnfollowButton from "../Buttons/UnfollowButton"
 
-const Explore = () => {
+const Following = () => {
     const [userList, setUserList] = useState<IUsersList[]>([])
 
     const getUserList = async () => {
         try {
-            const response = await axios.get(GET_ALL_USERS_ENDPOINT, { withCredentials: true })
+            const response = await axios.get(GET_FOLLOWING_ENDPOINT, { withCredentials: true })
             setUserList(response.data)
         } catch (err) {
             console.log(err)
@@ -24,15 +24,15 @@ const Explore = () => {
 
     return (
         <div className={styles.container}>
-            <h2>People you may find interesting</h2>
+            <h2>People you follow</h2>
 
             <div className={styles.peopleWrapper}>
                 {
                     userList?.map((user) => {
                         return (
-                            <div className={styles.followContainer}>
+                            <div className={styles.followContainer} key={user._id}>
                                 <span className={styles.username}>@{user.username}</span>
-                                <FollowButton followedId={user._id}/>
+                                <UnfollowButton followedId={user._id}/>
                             </div>
                         )
                     })
@@ -43,4 +43,4 @@ const Explore = () => {
     )
 }
 
-export default Explore
+export default Following
