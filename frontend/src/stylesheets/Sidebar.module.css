@@ -1,0 +1,27 @@
+.container {
+    width: 25%;
+}
+
+.suggestionContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #181c1c;
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+}
+.suggestionContainer h2 {
+    margin-bottom: 20px;
+}
+
+.followContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin: 10px;
+}
+
+.username {
+    font-weight: 500;
+}

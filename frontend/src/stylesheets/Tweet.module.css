@@ -1,0 +1,146 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--outline);
+    max-width: 100%;
+    cursor: pointer;
+  }
+  
+  .container:hover {
+    background: var(--twitter-dark-hover);
+  }
+  
+  .retweeted {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--gray);
+  }
+  
+  .rocketseat-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 35px;
+    margin-right: 9px;
+  }
+  
+  .body {
+    display: flex;
+    margin-top: 3px;
+    position: relative;
+  }
+  
+  .avatar img {
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--gray);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2px;
+    padding-left: 59px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+  
+  .header strong {
+    margin-right: 5px;
+  }
+  
+  .header span,
+  time {
+    color: var(--gray);
+  }
+  
+  .header strong,
+  .header span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  
+  .dot {
+    background: var(--gray);
+    width: 2px;
+    height: 2px;
+    margin: 0 10px;
+  }
+  
+  .description {
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  
+  .imageContent img {
+    margin-top: 12px;
+    width: 100%;
+    height: min(285px, max(175px, 41vw));
+    background: var(--outline);
+    border-radius: 14px;
+  }
+  
+  .icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 11px auto 0;
+    width: 100%;
+  }
+  
+  @media (min-width: 330px) {
+    .icons {
+      width: 63%;
+    }
+  }
+  
+  .status {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+  
+  .status svg {
+    margin-right: 5px;
+  }
+  
+  .status:nth-child(1),
+  .status:nth-child(1) svg path {
+    color: var(--gray);
+  }
+  
+  .status:nth-child(2) {
+    color: var(--retweet);
+  }
+  
+  .status:nth-child(2) svg path {
+    fill: var(--retweet);
+  }
+  
+  .status:nth-child(3) {
+    color: var(--like);
+  }
+  
+  .status:nth-child(3) svg {
+    fill: var(--like);
+  }
+  
+  .icon {
+    width: 19px;
+    height: 19px;
+  }
+  
