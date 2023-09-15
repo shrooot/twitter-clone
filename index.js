@@ -9,22 +9,37 @@ const tweetRouter = require('./routes/tweet.route')
 dotenv.config();
 const app = express()
 
-app.use(express.json())
+
+app.use(cookieParser());
+const corsOpts = {
+    origin: '*',
+    methods: [
+        'GET',
+        'POST',
+        'PUT',
+        'DELETE'
+    ],
+    allowedHeaders: [
+        'Content-Type',
+    ],
+    credentials: true
+};
+
+app.use(cors(corsOpts));
 // app.use(cors({
 //     origin: "https://twitter-clone-frontend-production-1d63.up.railway.app/",
 //     credentials: true
 // }))
-
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://twitter-clone-frontend-production-1d63.up.railway.app/');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
+// app.use(function (req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', 'https://twitter-clone-frontend-production-1d63.up.railway.app/');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//     next();
+// });
+app.use(express.json())
 
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
 
 app.use('/user', userRouter)
 app.use('/tweet', tweetRouter)
