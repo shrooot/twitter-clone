@@ -32,6 +32,8 @@ exports.loginUser = async (req, res) => {
         const loginData = req.body;
         console.log(loginData)
         let user = await User.findOne({ username: loginData.username })
+        if (user === null)
+            throw new Error("User not found")
         const matchpass = await comparePassword(loginData.password, user.password);
 
         if (!matchpass) {
