@@ -22,9 +22,9 @@ app.use('/user', userRouter)
 app.use('/tweet', tweetRouter)
 
 
-const uri = process.env.mongo_uri;
-const HOST = process.env.host
-const PORT = process.env.port
+const uri = process.env.MONGO_URI;
+const HOST = process.env.HOST || "localhost"
+const PORT = process.env.PORT || 8080
 
 mongoose.connect(
     uri,
