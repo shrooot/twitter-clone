@@ -23,8 +23,8 @@ app.use('/tweet', tweetRouter)
 
 
 const uri = process.env.mongo_uri;
-const PORT = 8080
-const HOST = "localhost"
+const HOST = process.env.host
+const PORT = process.env.port
 
 mongoose.connect(
     uri,
@@ -34,16 +34,15 @@ mongoose.connect(
 // Check if the connection is established and once it is print a statement that will let us know the status
 
 mongoose.connection
-    .once('open', () => console.log('Database Connected Successfully'))
+    .once('open', () => {
+        console.log('Database Connected Successfully')
+        const server = app.listen(PORT, function () {
+            console.log(`listening at http://${HOST}:${PORT}`);
+        });
+    })
     .on('error', (error) => {
         console.log('Your error ', error);
     });
-
-
-
-const server = app.listen(PORT, function () {
-    console.log(`listening at http://${HOST}:${PORT}`);
-});
 
 
 
