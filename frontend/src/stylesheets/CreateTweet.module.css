@@ -30,3 +30,16 @@
     resize: none;
     font-size: 20px;
 }
+
+.tweetButton {
+    width: 250px;
+    height: 50px;
+    padding: 10px;
+    background-color: #209cf4;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    align-self: center;
+}

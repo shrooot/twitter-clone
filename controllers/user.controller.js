@@ -7,6 +7,11 @@ const TweetsModel = require('../models/Tweets.model');
 exports.createUser = async (req, res) => {
     try {
         const userData = req.body;
+
+        let checkUser = await User.findOne({ username: userData.username })
+        if (checkUser !== null)
+            return res.status(400).send("User already exists")
+
         let hashed_password = await encryptPassword(req.body.password)
         const newUser = await User.create({
             username: userData.username,
@@ -25,6 +30,7 @@ exports.createUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     try {
         const loginData = req.body;
+        console.log(loginData)
         let user = await User.findOne({ username: loginData.username })
         const matchpass = await comparePassword(loginData.password, user.password);
 
@@ -94,6 +100,18 @@ exports.getFollowers = async (req, res) => {
             .select('followed -_id').populate('user', 'username')
 
         res.status(200).json(followed)
+    } catch (err) {
+        console.log(err)
+        return res.status(400).json(err)
+    }
+}
+
+exports.getAllUsers = async (req, res) => {
+    try {
+        const userId = req.user._id
+        const users = await User.find({ _id: { $ne: userId } }).select('username')
+        console.log(users)
+        res.status(200).json(users)
     } catch (err) {
         console.log(err)
         return res.status(400).json(err)

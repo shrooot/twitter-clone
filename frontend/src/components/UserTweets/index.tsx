@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Tweet from '../Tweet';
 
@@ -8,9 +8,8 @@ const UserTweets: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.tab}>Your Tweets</div>
-
       <div className={styles.tweets}>
-        <Tweet/>
+        <Tweet type='user' />
       </div>
     </div>
   );

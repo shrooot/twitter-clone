@@ -21,9 +21,9 @@ const Sidebar: React.FC = () => {
             <div className={styles.suggestionContainer}>
                 <h2>Who to follow</h2>
                 {
-                    data.map((d) => {
+                    data.map((d, index) => {
                         return (
-                            <div className={styles.followContainer}>
+                            <div className={styles.followContainer} key={index}>
                                 <span className={styles.username}>@{d.username}</span>
                                 <FollowButton />
                             </div>

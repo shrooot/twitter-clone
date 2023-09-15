@@ -4,6 +4,7 @@
     width: 50%;
     border-left: 1px solid #2c3434;
     border-right: 1px solid #2c3434;
+    min-height: 100vh;
   }
   
   .tab {

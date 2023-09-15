@@ -52,3 +52,14 @@ exports.deleteTweet = async (req, res) => {
         res.status(400).send(err)
     }
 }
+
+exports.getAllTweets = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        let tweets = await TweetsModel.find({ user: userId }).populate('user','username');
+        res.status(200).json(tweets)
+    } catch (err) {
+        console.log(err)
+        res.status(400).send(err)
+    }
+}

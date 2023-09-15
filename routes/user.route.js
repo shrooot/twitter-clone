@@ -1,5 +1,5 @@
 const express = require('express')
-const { createUser, loginUser, logoutUser, followUser, unFollowUser, getUserFeed, getFollowers } = require('../controllers/user.controller')
+const { createUser, loginUser, logoutUser, followUser, unFollowUser, getUserFeed, getFollowers, getAllUsers } = require('../controllers/user.controller')
 const { authenticateJwt } = require('../utils/auth')
 
 const router = express.Router()
@@ -11,6 +11,7 @@ router.post('/follow', authenticateJwt, followUser)
 router.post('/unfollow', authenticateJwt, unFollowUser)
 router.get('/get-feed', authenticateJwt, getUserFeed)
 router.get('/get-followers', authenticateJwt, getFollowers)
+router.get('/get-all-users', authenticateJwt, getAllUsers)
 
 
 router.get('/check', authenticateJwt, (req, res) => {
