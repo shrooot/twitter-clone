@@ -12,7 +12,7 @@ const app = express()
 
 app.use(cookieParser());
 const corsOpts = {
-    origin: '*',
+    origin: 'https://twitter-clone-frontend-production-1d63.up.railway.app',
     methods: [
         'GET',
         'POST',
