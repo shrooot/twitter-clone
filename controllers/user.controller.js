@@ -42,7 +42,7 @@ exports.loginUser = async (req, res) => {
             const token = await generateToken({ userId: user._id })
             user.token = token;
             delete user.password
-            res.cookie('token', token, { httpOnly: true, sameSite: 'none' });
+            res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: true });
             res.status(200).json(user)
         }
     } catch (err) {
