@@ -42,7 +42,7 @@ exports.loginUser = async (req, res) => {
             const token = await generateToken({ userId: user._id })
             user.token = token;
             delete user.password
-            res.cookie('token', token, { httpOnly: true });
+            res.cookie('token', token, { httpOnly: true, sameSite: 'none' });
             res.status(200).json(user)
         }
     } catch (err) {
@@ -117,7 +117,7 @@ exports.getAllUsers = async (req, res) => {
 
         const followedIds = followed.map(result => result.followed);
         followedIds.push(userId)
-        
+
         const users = await User.find({ _id: { $nin: followedIds } }).select('username')
         console.log(users)
         res.status(200).json(users)
@@ -136,7 +136,7 @@ exports.getUserFeed = async (req, res) => {
 
         const followedIds = followed.map(result => result.followed);
         console.log(followedIds)
-        const feedTweets = await TweetsModel.find({ user: { $in: followedIds } }).populate('user', 'username').sort({createdAt: -1})
+        const feedTweets = await TweetsModel.find({ user: { $in: followedIds } }).populate('user', 'username').sort({ createdAt: -1 })
 
         res.status(200).json(feedTweets)
     } catch (err) {
